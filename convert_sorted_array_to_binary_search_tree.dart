@@ -24,5 +24,4 @@ class Solution {
 
 void main(List<String> args) {
   TreeNode? result = Solution.sortedArrayToBST([-10, -3, 0, 5, 9, 10]);
-  print(result);
 }
