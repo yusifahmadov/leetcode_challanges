@@ -2,12 +2,13 @@ class Solution {
   static List<int> topKFrequent(List<int> nums, int k) {
     Map<int, int> freq = {};
     for (int num in nums) {
+      //n
       freq[num] = (freq[num] ?? 0) + 1;
     }
-    List<int> uniqueNums = freq.keys.toList();
+    List<int> uniqueNums = freq.keys.toList(); //n
 
-    uniqueNums.sort((a, b) => freq[b]!.compareTo(freq[a]!));
-    return uniqueNums.sublist(0, k);
+    uniqueNums.sort((a, b) => freq[b]!.compareTo(freq[a]!)); // nlogn
+    return uniqueNums.sublist(0, k); //n
   }
 }
 
