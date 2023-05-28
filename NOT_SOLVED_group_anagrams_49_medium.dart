@@ -1,21 +1,39 @@
 class Solution {
   static List<List<String>> groupAnagrams(List<String> strs) {
-    List<List<String>> list = [];
+    Map<String, List<String>> map = Map.fromIterable(
+      List.generate(strs.length, (index) => strs[index]),
+      key: (element) => element,
+      value: (element) => [element],
+    );
 
     for (var i = 0; i < strs.length; i++) {
-      if (!list.any((element) => element.contains(strs[i]))) {
-        list.add([strs[i]]);
-      }
       for (var j = 1; j < strs.length; j++) {
-        if (anagramChecker(strs[i], strs[j]) && strs[i] != strs[j]) {
-          if (!list.any((element) => element.contains(strs[j]))) {
-            list.where((element) => element.contains(strs[i])).first.add(strs[j]);
+        if (anagramChecker(strs[i], strs[j])) {
+          if (map.containsKey(strs[i])) {
+            map.update(strs[i], (value) {
+              value.add(strs[j]);
+              return value;
+            });
           }
+
+          // strs.removeAt(j);
+          // j = -1;
         }
       }
+      if (strs.isNotEmpty) {
+        strs.removeAt(i);
+        i = -1;
+      }
     }
-    print(list);
-    return list;
+
+    List<List<String>> list = map.values.toList();
+    for (var i = 0; i < list.length; i++) {
+      for (var j = 0; j < list.length; j++) {
+        // if(list[i].length > list[j].length  )
+      }
+    }
+
+    return map.values.toList();
   }
 
   static bool anagramChecker(String a, String b) {
@@ -40,7 +58,13 @@ class Solution {
 }
 
 void main(List<String> args) {
-  // ["eat", "tea", "tan", "ate", "nat", "bat"]
   List<List<String>> result = Solution.groupAnagrams(["1", "1"]);
+  List<List<String>> result2 = Solution.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]);
+  // List<List<String>> result3 = Solution.groupAnagrams(["", "", ""]);
+  List<List<String>> result4 = Solution.groupAnagrams(["ate", "eat", "tea"]);
+
   print(result);
+  print(result2);
+  // print(result3);
+  print(result4);
 }
